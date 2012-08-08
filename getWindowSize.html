@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Get Window Size</title>
+		<meta name="author" content="Mack" />
+		<!-- Date: 2012-08-08 -->
+		<script type="text/javascript">
+			console.log("window.innerWidth = " + window.innerWidth);
+			console.log("document.documentElement.clientWidth = " + document.documentElement.clientWidth);		        		
+			console.log("document.body.clientWidth = " + document.body.clientWidth);
+				        		
+			function getWidth() {
+				if ( window.innerWidth ) {
+						console.log("window.innerWidth = " + window.innerWidth);
+		                return window.innerWidth;
+		        }
+		        else if ( document.documentElement && document.documentElement.clientWidth != 0 ) {
+		        		console.log("document.documentElement.clientWidth = " + document.documentElement.clientWidth);
+		                return document.documentElement.clientWidth;
+		        }
+		        else if ( document.body ) {
+		        		console.log("document.body.clientWidth = " + document.body.clientWidth);
+		                return document.body.clientWidth;
+		        }
+		        return 0;
+			}
+			
+			function getHeight() {
+				if ( window.innerHeight ) {
+		                return window.innerHeight;
+		        }
+		        else if ( document.documentElement && document.documentElement.clientHeight != 0 ) {
+		                return document.documentElement.clientHeight;
+		        }
+		        else if ( document.body ) {
+		                return document.body.clientHeight;
+		        }
+		        return 0;
+			}
+			var x = getWidth();
+			alert(x);
+			/*
+			function consoleWindowSize(name, value) {
+				if (value == 0) { console.log(name + " is " + value); }
+				else if (value) { console.log(name + " is " + value); }
+				else if (!value) { console.log(name + " is null"); }
+				else { console.log(name + " is unknown value"); }
+			}
+			*/
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
+
