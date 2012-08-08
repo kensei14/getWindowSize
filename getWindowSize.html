@@ -7,31 +7,35 @@
 		<title>Get Window Size</title>
 		<meta name="author" content="Mack" />
 		<!-- Date: 2012-08-08 -->
-		<script type="text/javascript">			
+		<script type="text/javascript">
+			//allWindowSize("first");
 			document.addEventListener("DOMContentLoaded", function() {
-							allWindowSize("top");
-			}, false); 
-			//alert(x);
+				allWindowSize("after DOM loaded");
+			}, false);
 
 			function allWindowSize(timing) {
 				var parent = window;
 				var parent_name = "window";
 				
-				console.log(timing);
+				console.log("timing" + timing);
+				
 				eachleWindowSize("innerWidth", window.innerWidth);
 				eachleWindowSize("innerHeight", window.innerHeight);
 				eachleWindowSize("outerWidth", window.outerWidth);
 				eachleWindowSize("outerHeight", window.outerHeight);
+				
 				//documentがあれば
 				if ("document" in window) {
 					parent = window.document;
 					parent_name = "window.document";
+					
 					eachleWindowSize("width", window.width);
 					eachleWindowSize("height", window.height);
 
 					if ("body" in window.document) {
 						parent = window.document.body;
 						parent_name = "window.document.body";
+						
 						eachleWindowSize("scrollWidth", window.document.body.scrollWidth);
 						eachleWindowSize("scrollHeight", window.document.body.scrollHeight);
 						eachleWindowSize("offsetWidth", window.document.body.offsetWidth);
@@ -42,6 +46,7 @@
 					if ("documentElement" in window.document) {
 						parent = window.document.documentElement;
 						parent_name = "window.document.documentElement";
+						
 						eachleWindowSize("scrollWidth", window.document.documentElement.scrollWidth);
 						eachleWindowSize("scrollHeight", window.document.documentElement.scrollHeight);
 						eachleWindowSize("offsetWidth", window.document.documentElement.offsetWidth);
@@ -50,18 +55,19 @@
 						eachleWindowSize("clientHeight", window.document.documentElement.clientHeight);
 					}
 					else { console.log("there is no window.documentElement"); }
-
-					if ("screen" in window) {
-						parent = window.screen;
-						parent_name = "window.screen";
-						eachleWindowSize("width", window.screen.width);
-						eachleWindowSize("height", window.screen.height);
-						eachleWindowSize("availWidth", window.screen.availWidth);
-						eachleWindowSize("availHeight", window.screen.availHeight);
-					}
-					else { console.log("there is no window.screen"); }
 				}
-				else { console.log("there is no document"); }
+				else { console.log("there is no window.document"); }
+				
+				if ("screen" in window) {
+					parent = window.screen;
+					parent_name = "window.screen";
+					
+					eachleWindowSize("width", window.screen.width);
+					eachleWindowSize("height", window.screen.height);
+					eachleWindowSize("availWidth", window.screen.availWidth);
+					eachleWindowSize("availHeight", window.screen.availHeight);
+				}
+				else { console.log("there is no window.screen"); }
 
 				function eachleWindowSize(property_name, value) {
 					var out = "";
