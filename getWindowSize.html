@@ -7,49 +7,71 @@
 		<title>Get Window Size</title>
 		<meta name="author" content="Mack" />
 		<!-- Date: 2012-08-08 -->
-		<script type="text/javascript">
-			console.log("window.innerWidth = " + window.innerWidth);
-			console.log("document.documentElement.clientWidth = " + document.documentElement.clientWidth);		        		
-			console.log("document.body.clientWidth = " + document.body.clientWidth);
-				        		
-			function getWidth() {
-				if ( window.innerWidth ) {
-						console.log("window.innerWidth = " + window.innerWidth);
-		                return window.innerWidth;
-		        }
-		        else if ( document.documentElement && document.documentElement.clientWidth != 0 ) {
-		        		console.log("document.documentElement.clientWidth = " + document.documentElement.clientWidth);
-		                return document.documentElement.clientWidth;
-		        }
-		        else if ( document.body ) {
-		        		console.log("document.body.clientWidth = " + document.body.clientWidth);
-		                return document.body.clientWidth;
-		        }
-		        return 0;
+		<script type="text/javascript">			
+			document.addEventListener("DOMContentLoaded", function() {
+							allWindowSize("top");
+			}, false); 
+			//alert(x);
+
+			function allWindowSize(timing) {
+				var parent = window;
+				var parent_name = "window";
+				
+				console.log(timing);
+				eachleWindowSize("innerWidth", window.innerWidth);
+				eachleWindowSize("innerHeight", window.innerHeight);
+				eachleWindowSize("outerWidth", window.outerWidth);
+				eachleWindowSize("outerHeight", window.outerHeight);
+				//documentがあれば
+				if ("document" in window) {
+					parent = window.document;
+					parent_name = "window.document";
+					eachleWindowSize("width", window.width);
+					eachleWindowSize("height", window.height);
+
+					if ("body" in window.document) {
+						parent = window.document.body;
+						parent_name = "window.document.body";
+						eachleWindowSize("scrollWidth", window.document.body.scrollWidth);
+						eachleWindowSize("scrollHeight", window.document.body.scrollHeight);
+						eachleWindowSize("offsetWidth", window.document.body.offsetWidth);
+						eachleWindowSize("offsetHeight", window.document.body.offsetHeight);											
+					}
+					else { console.log("there is no window.document.body"); }
+					
+					if ("documentElement" in window.document) {
+						parent = window.document.documentElement;
+						parent_name = "window.document.documentElement";
+						eachleWindowSize("scrollWidth", window.document.documentElement.scrollWidth);
+						eachleWindowSize("scrollHeight", window.document.documentElement.scrollHeight);
+						eachleWindowSize("offsetWidth", window.document.documentElement.offsetWidth);
+						eachleWindowSize("offsetHeight", window.document.documentElement.offsetHeight);
+						eachleWindowSize("clientWidth", window.document.documentElement.clientWidth);
+						eachleWindowSize("clientHeight", window.document.documentElement.clientHeight);
+					}
+					else { console.log("there is no window.documentElement"); }
+
+					if ("screen" in window) {
+						parent = window.screen;
+						parent_name = "window.screen";
+						eachleWindowSize("width", window.screen.width);
+						eachleWindowSize("height", window.screen.height);
+						eachleWindowSize("availWidth", window.screen.availWidth);
+						eachleWindowSize("availHeight", window.screen.availHeight);
+					}
+					else { console.log("there is no window.screen"); }
+				}
+				else { console.log("there is no document"); }
+
+				function eachleWindowSize(property_name, value) {
+					var out = "";
+					if (!(property_name in parent)) { out += parent_name + "." + property_name + " is not defined" }
+					else if (value == 0) { out += parent_name +  "." + property_name + " is " + value }
+					else if (value) { out += parent_name + "." + property_name + " is " + value }
+					else { out += parent_name + "." + property_name + " is unknown value" }
+					console.log(out);
+				}				
 			}
-			
-			function getHeight() {
-				if ( window.innerHeight ) {
-		                return window.innerHeight;
-		        }
-		        else if ( document.documentElement && document.documentElement.clientHeight != 0 ) {
-		                return document.documentElement.clientHeight;
-		        }
-		        else if ( document.body ) {
-		                return document.body.clientHeight;
-		        }
-		        return 0;
-			}
-			var x = getWidth();
-			alert(x);
-			/*
-			function consoleWindowSize(name, value) {
-				if (value == 0) { console.log(name + " is " + value); }
-				else if (value) { console.log(name + " is " + value); }
-				else if (!value) { console.log(name + " is null"); }
-				else { console.log(name + " is unknown value"); }
-			}
-			*/
 		</script>
 	</head>
 	<body>
